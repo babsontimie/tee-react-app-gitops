@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-api
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-api
+  template:
+    metadata:
+      labels:
+        app: nginx-api
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: nginx-api
+          image: ghcr.io/babsontimie/kubernetes-cicd-tutorial:2e8b9b276b0dc168df3c5602146c9149cfdd64f4
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-api
+  namespace: dev
+spec:
+  selector:
+    app: nginx-api
+  ports:
+    - port: 8080
+      targetPort: 80
+  type: NodePort
