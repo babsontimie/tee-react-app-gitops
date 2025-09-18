@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-api
+  name: tee-reactapp-api
   namespace: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-api
+      app: tee-reactapp-api
   template:
     metadata:
       labels:
-        app: nginx-api
+        app: tee-reactapp-api
     spec:
       imagePullSecrets:
         - name: ghcr-secret
       containers:
-        - name: nginx-api
+        - name: tee-reactapp-api
           image: ghcr.io/babsontimie/kubernetes-cicd-tutorial:2e8b9b276b0dc168df3c5602146c9149cfdd64f4
           ports:
             - containerPort: 80
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-api
+  name: tee-reactapp-api
   namespace: dev
 spec:
   selector:
-    app: nginx-api
+    app: tee-reactapp-api
   ports:
     - port: 8080
       targetPort: 80
