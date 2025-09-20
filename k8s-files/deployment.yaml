@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: tee-reactapp-api
-          image: ghcr.io/babsontimie/tee-react-app-k8s:0081c01c8591cec90c6386876c60e4d6749dd95c
+          image: ghcr.io/babsontimie/tee-react-app-k8s:d216e2ab76125fa7b94135ebfcae207476ffdb8c
           ports:
             - containerPort: 80
           resources:
